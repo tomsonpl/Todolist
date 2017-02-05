@@ -17,23 +17,26 @@ const ListItem = ({ task, onRemoveButtonClick }) => {
     removeButton: {
       justifyContent: 'flex-end'
     }
-  }
+  };
 
   return (
-    <li
-      style={styles.listItem}
-    > 
-      <Checkbox
-        iconStyle={styles.checkBox}
-        label={task.newTask}
-      />
-      <FlatButton
-        secondary
-        style={styles.removeButton}
-        label="Delete"
-        onTouchTap={onRemoveButtonClick}
-      />
-    </li>
+    <div className="listItem">
+      <li
+        style={styles.listItem}
+      >
+        <Checkbox
+          iconStyle={styles.checkBox}
+          label={task.newTask}
+        />
+        <FlatButton
+          className="removeButton"
+          secondary={true}
+          style={styles.removeButton}
+          label="Delete"
+          onClick={onRemoveButtonClick}
+        />
+      </li>
+    </div>
   );
 };
 

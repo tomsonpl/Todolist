@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ListItem from './ListItem'
-import { Dialog, RaisedButton, TextField } from 'material-ui';
+import Header from './Header';
+import ListItem from './ListItem';
+import { Dialog } from 'material-ui';
 
 class ListDialog extends Component {
 
@@ -17,10 +18,10 @@ class ListDialog extends Component {
     input: {
       paddingTop: 30,
       fontSize: 20,
-      width:"82%"
+      width: '82%'
     }
   })
- 
+
   onInputChange = (event) => {
     this.setState({ newTask: event.target.value });
   }
@@ -28,7 +29,7 @@ class ListDialog extends Component {
   handleAddTask = () => {
     const { tasks, newTask } = this.state;
 
-    if(!newTask) return;
+    if (!newTask) return;
 
     tasks.push({ newTask });
 
@@ -41,28 +42,28 @@ class ListDialog extends Component {
   handleKeyDown = (event) => {
     switch (event.key) {
       case 'Enter':
-          return this.handleAddTask();
+        return this.handleAddTask();
       case 'Escape':
-          return this.setState({ newTask: ''});
+        return this.setState({ newTask: '' });
       default:
-        return;  
+        return;
     }
   }
 
   handleRemoveTask(index) {
     const { tasks } = this.state;
-    const filteredTasks = tasks.filter((event, key) => {
-        return key !== index;
-      })
+    const filteredTasks = tasks.filter((event, key) => key !== index);
 
     this.setState({
       tasks: filteredTasks
     });
   }
 
-  renderTasks = () => {
-    const { tasks } = this.state;
-    const tasksToRender = tasks.map((task, key) => (
+  render() {
+    const styles = this.getStyles();
+    const { open, title } = this.props;
+    const { newTask, tasks } = this.state;
+    const tasksList = tasks.map((task, key) => (
       <ListItem
         key={key}
         task={task}
@@ -70,42 +71,28 @@ class ListDialog extends Component {
       />
     ));
 
-    return tasksToRender;
-  };
-
-  render() {
-    const styles = this.getStyles();
-    const { open, title } = this.props;
-    const { newTask, tasks } = this.state;
-
     return (
-      <div>
+      <div className="listDialog">
         <Dialog
           title={title}
           open={open}
           autoScrollBodyContent={true}
           style={styles.dialog}
         >
-          {`Things planned for today: ${tasks.length}`}
-          <TextField 
-            style={styles.input}
-            id="Task Name"
-            inputStyle={styles.label}
-            value={newTask}
+          <p>
+            {`Things planned for today: ${tasks.length}`}
+          </p>
+          <Header
             onChange={this.onInputChange}
             onKeyDown={this.handleKeyDown}
-            placeholder="A new task for today..."
-          />
-          <RaisedButton
-            primary
-            label="Add"
             onTouchTap={this.handleAddTask}
+            value={newTask}
           />
-          {this.renderTasks()}
+          {tasksList}
         </Dialog>
       </div>
     );
-  };
+  }
 }
 
 export default ListDialog;

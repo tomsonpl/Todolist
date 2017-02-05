@@ -1,18 +1,31 @@
 {
-  "name": "my-app",
+  "name": "ToDoList",
   "version": "0.1.0",
   "private": true,
+  "devDependencies": {
+    "babel-register": "6.18.0",
+    "react-scripts": "0.8.5"
+  },
+  "dependencies": {
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-1": "^6.22.0",
+    "chai": "^3.5.0",
+    "chai-jquery": "^2.0.0",
+    "jquery": "^3.1.1",
+    "jsdom": "^9.9.1",
+    "material-ui": "^0.16.7",
+    "mocha": "^3.2.0",
+    "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-tap-event-plugin": "^2.0.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "mocha --compilers js:babel-core/register --require ./test/TestHelpers.js 'test/**/*.js'",
     "eject": "react-scripts eject"
-  },
-  "dependencies": {
-    "material-ui": "^0.16.7",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-scripts": "^0.8.5",
-    "react-tap-event-plugin": "^2.0.1"
   }
 }
